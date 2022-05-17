@@ -6,6 +6,9 @@ SDL_Renderer *renderer;
 SDL_Texture *texture;
 uint16_t *frame_buffer;
 
+// Legato frame buffer from gfx\driver\controller\lcc\drv_gfx_lcc.c
+extern gfxPixelBuffer pixelBuffer;
+
 void sdl_renderer_init(void)
 {
     window = SDL_CreateWindow("Legato Graphics Web Demo",
@@ -25,6 +28,13 @@ void sdl_renderer_init(void)
     frame_buffer = (uint16_t *)malloc(SDL_HOR_RES * SDL_VER_RES * SDL_BYTES_PER_PIXEL);
     memset(frame_buffer, 0xff, SDL_HOR_RES * SDL_VER_RES * SDL_BYTES_PER_PIXEL);
     sdl_renderer_update();
+
+    // Force Legato to use the allocated buffer
+    gfxPixelBufferCreate(SDL_HOR_RES,
+                         SDL_VER_RES,
+                         GFX_COLOR_MODE_RGB_565,
+                         frame_buffer,
+                         &pixelBuffer);
 }
 
 void sdl_renderer_update(void)

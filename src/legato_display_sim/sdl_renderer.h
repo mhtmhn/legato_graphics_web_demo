@@ -1,11 +1,7 @@
 #ifndef __SDL_RENDERER_H__
 #define __SDL_RENDERER_H__
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <string.h>
+#include "definitions.h"
 
 #define SDL_HOR_RES             800
 #define SDL_VER_RES             480

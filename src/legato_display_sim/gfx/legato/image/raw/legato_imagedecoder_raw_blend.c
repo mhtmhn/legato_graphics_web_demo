@@ -103,7 +103,7 @@ static leResult stage_BlendARGB8888(leRawDecodeStage* stage)
     return LE_SUCCESS;
 }
 
-void _leRawImageDecoder_BlendStage_Internal(leRawDecodeState* state)
+leResult _leRawImageDecoder_BlendStage_Internal(leRawDecodeState* state)
 {
     memset(&blendStage, 0, sizeof(blendStage));
 
@@ -126,13 +126,15 @@ void _leRawImageDecoder_BlendStage_Internal(leRawDecodeState* state)
     }
     else
     {
-        return;
+        return 0;
     }
 
     blendStage.base.state = state;
     blendStage.renderer = leGetRenderState();
 
     _leRawImageDecoder_InjectStage(state, (void*)&blendStage);
+
+    return 0;
 }
 
 #endif /* LE_ENABLE_RAW_DECODER */

@@ -49,7 +49,7 @@
 #define BUFFER_COUNT    1
 #define DISPLAY_WIDTH   800
 #define DISPLAY_HEIGHT  480
-
+#ifdef ORIGCODE
 #define EBI_CS_INDEX  0
 
 #define EBI_BASE_ADDR  EBI_CS0_ADDR
@@ -81,7 +81,7 @@ FRAMEBUFFER_TYPE FRAMEBUFFER_ATTRIBUTE frameBuffer[BUFFER_COUNT][DISPLAY_WIDTH *
 #ifndef GFX_DISP_INTF_PIN_HSYNC_Set
 #error "GFX_DISP_INTF_PIN_HSYNC GPIO must be defined in the Pin Settings"
 #endif
-
+#endif
 /**** Hardware Abstraction Interfaces ****/
 enum
 {
@@ -89,7 +89,7 @@ enum
     RUN
 };
 
-
+#ifdef ORIGCODE
 static int start(void);
 static void displayRefresh(void);
 static gfxResult lccBacklightBrightnessSet(uint32_t brightness);
@@ -98,7 +98,7 @@ void dmaIntHandler (DRV_GFX_DMA_EVENT_TYPE status,
 
 uint16_t HBackPorch;
 uint32_t VER_BLANK;
-
+#endif
 uint32_t DISP_HOR_FRONT_PORCH = 2;
 uint32_t DISP_HOR_RESOLUTION = DISPLAY_WIDTH;
 uint32_t DISP_HOR_BACK_PORCH = 2;
@@ -108,7 +108,7 @@ uint32_t DISP_VER_FRONT_PORCH = 2;
 uint32_t DISP_VER_RESOLUTION = DISPLAY_HEIGHT;
 uint32_t DISP_VER_BACK_PORCH = 2;
 uint32_t DISP_VER_PULSE_WIDTH = 10;
-
+#ifdef ORIGCODE
 int16_t line = 0;
 uint32_t offset = 0;
 uint16_t pixels = 0;
@@ -118,7 +118,7 @@ uint32_t vsyncPeriod = 0;
 uint32_t vsyncPulseDown = 0;
 uint32_t vsyncPulseUp = 0;
 uint32_t vsyncEnd = 0;
-
+#endif
 unsigned int vsyncCount = 0;
 
 static uint32_t state;
@@ -129,7 +129,7 @@ gfxPixelBuffer pixelBuffer;
 gfxResult DRV_LCC_Initialize(void)
 {
     state = INIT;
-
+#ifdef ORIGCODE
     gfxPixelBufferCreate(DISP_HOR_RESOLUTION,
                         DISP_VER_RESOLUTION,
                         GFX_COLOR_MODE_RGB_565,
@@ -152,12 +152,13 @@ gfxResult DRV_LCC_Initialize(void)
     TC0_CH0_CompareStart();
 
     lccBacklightBrightnessSet(100);
-
+#endif
     return GFX_SUCCESS;
 }
 
 void DRV_LCC_Update(void)
 {
+#ifdef ORIGCODE
     if(state == INIT)
     {
         if(start() != 0)
@@ -167,6 +168,7 @@ void DRV_LCC_Update(void)
         
         state = RUN;
     }
+#endif
 }
 
 
@@ -174,10 +176,12 @@ gfxResult DRV_LCC_BlitBuffer(int32_t x,
                              int32_t y,
                              gfxPixelBuffer* buf)
 {
+#ifdef ORIGCODE
     if (state != RUN)
         return GFX_FAILURE;
     else
     {
+#endif
         void* srcPtr;
         void* destPtr;
         uint32_t row, rowSize;
@@ -193,9 +197,11 @@ gfxResult DRV_LCC_BlitBuffer(int32_t x,
         }
     
         return GFX_SUCCESS;
+#ifdef ORIGCODE
     }
 
     return GFX_FAILURE;
+#endif
 }
 
 
@@ -284,7 +290,7 @@ gfxDriverIOCTLResponse DRV_LCC_IOCTL(gfxDriverIOCTLRequest request,
 	return GFX_IOCTL_UNSUPPORTED;
 }
 
-
+#ifdef ORIGCODE
 static gfxResult lccBacklightBrightnessSet(uint32_t brightness)
 {
     uint32_t value;
@@ -470,4 +476,4 @@ void dmaIntHandler (DRV_GFX_DMA_EVENT_TYPE status,
 {
     displayRefresh();
 }
-
+#endif
