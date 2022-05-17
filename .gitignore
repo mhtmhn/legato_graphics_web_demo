@@ -12,4 +12,4 @@
 **/.generated_files/
 
 #Misc
-.vscode
+**/.vscode/
