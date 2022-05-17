@@ -1,0 +1,14 @@
+configName: stub
+folderName: legato_sdl2_emscripten
+format_version: v1.0
+frameworkPath: D:\Harmony
+processor: ATSAMV71Q21B
+projectName: legato_sdl2_emscripten
+settings:
+  PackageFilter: audio;bootloader;bootloader_apps_uart;bsp;core;core_apps_sam_e70_s70_v70_v71;crypto;csp;csp_apps_sam_e70_s70_v70_v71;dev_packs;gfx;gfx_apps_sam_e70_s70_v70_v71;harmony-services;net;quick_docs;touch;usb;usb_apps_device;usb_apps_host
+  FORCE_OPTIMIZATION: 'false'
+  GENERATE_BACKUP: 'true'
+  TRUSTZONE: 'false'
+  CMSISPath: .\dev_packs\arm\CMSIS\5.8.0
+  MERGE_STRATEGY: USER_ALL
+  DFPPath: .\dev_packs\Microchip\SAMV71_DFP\4.6.90\samv71b\atdf\ATSAMV71Q21B.atdf
