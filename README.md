@@ -1,4 +1,5 @@
 
+
 # Legato Graphics Web Demo
 
 POC of a web browser based simulator for Microchip's graphics library.
@@ -65,3 +66,37 @@ Or, you can setup the environment manually every time shell is restarted.
 
     . <emsdk_path>/emsdk_env.sh
 
+
+# Building
+
+**Clone the repo**
+
+    git clone https://github.com/mhtmhn/legato_graphics_web_demo.git
+
+**Create a build folder**
+
+    cd legato_graphics_web_demo/src/legato_display_sim
+    mkdir build
+    cd build
+
+**Run CMake**
+
+> Note, you need to run `. <emsdk_path>/emsdk_env.sh` first, if you haven't added Emscripten SDK to PATH
+
+     emcmake cmake ..
+
+**Run Make**
+
+> You can use -j<number_of_logical_cpu_cores> depending on your hardware
+
+    emmake make -j4
+
+**Launch the web page**
+
+> Tested on Ubuntu 20.04 w/ WSL2
+
+    sensible-browser legato_display_sim.html
+
+
+# Typical Output
+![typical_output](https://user-images.githubusercontent.com/14132871/168876400-13533d5b-7d4b-4c57-b063-cede48444783.png)
